@@ -25,7 +25,6 @@ export const AuthPage = () => {
   const { loading, error, request, clearError } = useHttp();
 
   useEffect(() => {
-    console.log('error', error);
     clearError();
   }, [error, message, clearError]);
 

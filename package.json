@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Maxim1905/MERN.git"
+    "url": "git+https://github.com/Maxim1905/pokerPlanning.git"
   },
   "keywords": [
     "mongoDB",
@@ -32,6 +32,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.7.0",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.4",
     "shortid": "^2.2.16",
     "socket.io": "^3.1.2"

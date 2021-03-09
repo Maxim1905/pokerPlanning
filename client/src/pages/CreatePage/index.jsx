@@ -46,7 +46,6 @@ export const CreatePage = () => {
         <Form
           subscription={{ submitting: true }}
           onSubmit={(data) => {
-            console.log('data', data);
             const gameId = shortid.generate(data.name);
 
             history.push(`/game/${gameId}`);

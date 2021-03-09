@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import {
   Container,
   FormDirection,
@@ -14,13 +16,13 @@ import { io } from 'socket.io-client';
 const FIBONACCI = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, '?'];
 
 export const GamePage = () => {
-  const socket = io('http://localhost:3000');
+  useEffect(() => {
+    const socket = io();
 
-  console.log(socket.id); // undefined
-
-  socket.on('connect', () => {
-    console.log(socket.id); // "G5p5..."
-  });
+    socket.on('connect', () =>
+      socket.emit('hello', `Hi there! I am ${window.navigator.userAgent}`)
+    );
+  }, []);
 
   return (
     <Container>
