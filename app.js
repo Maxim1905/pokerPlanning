@@ -8,41 +8,90 @@
 // В node.js чтобы получать пакеты у нас есть глобальная функция require.
 // npx create-react-app client - создали проект клиентской части в папку client
 
-const express = require("express");
-const config = require("config");
+const express = require('express');
+const config = require('config');
 // подключаемся к mongoDB
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const socketio = require('socket.io');
+const http = require('http');
 
-const authRoute = require("./routes/auth.routes");
-const linkRoute = require("./routes/link.routes");
-const redirectRoute = require("./routes/redirect.routes");
+const authRoute = require('./routes/auth.routes');
+const linkRoute = require('./routes/link.routes');
+const redirectRoute = require('./routes/redirect.routes');
 
-const path = require("path");
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers,
+} = require('./utils/users');
 
 // сервер
 const app = express();
 
+// const server = http.createServer(app);
+// const io = socketio(server);
+
 app.use(express.json({ extended: true }));
 
 // регистрируем роуты которые будут обрабатывать апи запросы с фронта
-app.use("/api/auth", authRoute);
-app.use("/api/link", linkRoute);
-app.use("/t", redirectRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/link', linkRoute);
+app.use('/t', redirectRoute);
 
-// помимо формирования АПИ нужно отдавать фронтенд
+// io.on('connection', (socket) => {
+//   socket.on('joinRoom', ({ username, room }) => {
+//     const user = userJoin(socket.id, username, room);
 
-if (process.env.NODE_ENV === "production") {
-  // добавляем express.static чтобы указать статическую папку
-  app.use("/", express.static(path.join(__dirname, "client", "build")));
+//     socket.join(user.room);
 
-  // любой "*" get запрос я буду отправлять файл который назодится в папке client-build-index.html
-  app.get("*", (request, response) => {
-    response.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+//     // Welcome current user
+//     socket.emit('message', formatMessage(username, 'Welcome to chat!'));
 
-const PORT = config.get("port") || 5000;
-const MONGO_URI = config.get("mongoUri");
+//     // Broadcast when a user connects
+//     socket.broadcast
+//       .to(user.room)
+//       .emit(
+//         'message',
+//         formatMessage(username, `A ${user.username} join to the chat`)
+//       );
+
+//     // Send users and room info
+//     io.to(user.room).emit('roomUsers', {
+//       room: user.room,
+//       users: getRoomUsers(user.room),
+//     });
+//   });
+
+//   // Listen for chatMessage
+//   socket.on('chatMessage', (msg) => {
+//     const user = getCurrentUser(socket.id);
+
+//     io.to(user.room).emit('message', formatMessage(user.username, msg));
+//   });
+
+//   // Runs when client disconnects
+//   socket.on('disconnect', () => {
+//     const user = userLeave(socket.id);
+
+//     if (user) {
+//       io.to(user.room).emit(
+//         'message',
+//         formatMessage('Chat Bot', `A ${user.username} left chat`)
+//       );
+
+//       // Send users and room info
+//       io.to(user.room).emit('roomUsers', {
+//         room: user.room,
+//         users: getRoomUsers(user.room),
+//       });
+//     }
+//   });
+// });
+
+const PORT = config.get('port') || 5000;
+const MONGO_URI = config.get('mongoUri');
 
 // нужно вызвать метод connect который позволит подключиться к базе данных, метод возвращает промис, поэтому оборачиваем в ассинхронную функцию
 

@@ -1,6 +1,19 @@
-import React, { useContext } from "react";
-import { NavLink, useHistory } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../context/auth.context';
+import { Button } from '@material-ui/core';
+
+const Title = styled.span`
+  font-size: 24px;
+  color: #fff;
+`;
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+`;
 
 export const Navbar = () => {
   const { logout } = useContext(AuthContext);
@@ -8,34 +21,21 @@ export const Navbar = () => {
 
   const logoutHandler = () => {
     logout();
-    push("/");
+    push('/');
   };
 
   return (
-    <nav>
-      <div class="nav-wrapper">
-        <span class="brand-logo">Сокращение ссылок</span>
+    <Nav>
+      <Title>Скрам покер!</Title>
 
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <NavLink to="/create">Создать</NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/links">Ссылки</NavLink>
-          </li>
-
-          <li>
-            <a
-              class="waves-effect waves-light btn pink darken-3"
-              href="/"
-              onClick={logoutHandler}
-            >
-              Выйти
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      <Button
+        variant="contained"
+        color="primary"
+        // startIcon={<ExitToAppIcon />}
+        onClick={logoutHandler}
+      >
+        Выйти
+      </Button>
+    </Nav>
   );
 };

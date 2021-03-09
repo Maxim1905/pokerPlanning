@@ -1,12 +1,16 @@
-import { useRoutes } from "./routes";
-import { useAuth } from "./hooks/auth.hook";
+import { useRoutes } from './routes';
+import { useAuth } from './hooks/auth.hook';
+import styled from 'styled-components';
+import { AuthContext } from './context/auth.context';
 
-import { AuthContext } from "./context/auth.context";
+import { BrowserRouter } from 'react-router-dom';
+import 'materialize-css';
+import { Navbar } from './components/Navbar';
+import { Loader } from './components/Loader';
 
-import { BrowserRouter } from "react-router-dom";
-import "materialize-css";
-import { Navbar } from "./components/Navbar";
-import { Loader } from "./components/Loader";
+const Container = styled.div`
+  height: calc(100vh - 52px);
+`;
 
 const App = () => {
   const { userId, token, login, logout, ready } = useAuth();
@@ -23,9 +27,11 @@ const App = () => {
       value={{ token, logout, login, userId, isAuthenticated }}
     >
       <BrowserRouter>
-        {isAuthenticated && <Navbar />}
+        <Container>
+          {isAuthenticated && <Navbar />}
 
-        <div className="container">{routes}</div>
+          {routes}
+        </Container>
       </BrowserRouter>
     </AuthContext.Provider>
   );

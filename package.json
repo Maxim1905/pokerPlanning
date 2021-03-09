@@ -23,8 +23,9 @@
   ],
   "author": "Isaev Maxim <isaevmaxim1905@gmail.com>",
   "license": "ISC",
-
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.3",
     "cross-env": "^7.0.3",
@@ -32,10 +33,15 @@
     "express-validator": "^6.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.4",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "socket.io": "^3.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
-    "nodemon": "^2.0.6"
+    "final-form": "^4.20.2",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
+    "react-final-form": "^6.5.2",
+    "styled-components": "^5.2.1"
   }
 }
