@@ -37,7 +37,7 @@ export const AuthPage = () => {
   const registerHandler = async () => {
     try {
       const data = await request('/api/auth/register', 'POST', { ...form });
-
+      console.log('data', data);
       message(data.message);
     } catch (error) {}
   };
@@ -64,6 +64,7 @@ export const AuthPage = () => {
                 id="email"
                 label="email"
                 name="email"
+                variant="outlined"
                 value={form.email}
                 onChange={changeHandler}
               />
@@ -73,6 +74,7 @@ export const AuthPage = () => {
                 id="password"
                 name="password"
                 label="password"
+                variant="outlined"
                 value={form.password}
                 onChange={changeHandler}
               />

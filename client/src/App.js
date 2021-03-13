@@ -1,10 +1,9 @@
-import { useRoutes } from './routes';
+import { Routes } from './Routes';
 import { useAuth } from './hooks/auth.hook';
 import styled from 'styled-components';
 import { AuthContext } from './context/auth.context';
 
 import { BrowserRouter } from 'react-router-dom';
-import 'materialize-css';
 import { Navbar } from './components/Navbar';
 import { Loader } from './components/Loader';
 
@@ -15,8 +14,6 @@ const Container = styled.div`
 const App = () => {
   const { userId, token, login, logout, ready } = useAuth();
   const isAuthenticated = !!token;
-
-  const routes = useRoutes(isAuthenticated);
 
   if (!ready) {
     return <Loader />;
@@ -30,7 +27,7 @@ const App = () => {
         <Container>
           {isAuthenticated && <Navbar />}
 
-          {routes}
+          <Routes isAuthenticated={isAuthenticated} />
         </Container>
       </BrowserRouter>
     </AuthContext.Provider>

@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { Button } from '@material-ui/core';
 
@@ -48,7 +48,14 @@ const bounce = keyframes`
   }
 `;
 
-export const Card = styled.div`
+const cardHover = css`
+  &:hover {
+    animation: ${bounce} 600ms;
+    animation-fill-mode: forwards;
+  }
+`;
+
+export const CardInHand = styled.div`
   min-height: 90px;
   min-width: 70px;
   display: flex;
@@ -60,40 +67,29 @@ export const Card = styled.div`
   border: 2px solid #1976d2;
   font-size: 32px;
   font-weight: 500;
-  color: white;
-  background: #fff;
-  background: linear-gradient(
-      45deg,
-      #3993ff 12%,
-      transparent 0,
-      transparent 88%,
-      #3993ff 0
-    ),
-    linear-gradient(
-      135deg,
-      transparent 37%,
-      #1a7bf2 0,
-      #1a7bf2 63%,
-      transparent 0
-    ),
-    linear-gradient(
-      45deg,
-      transparent 37%,
-      #3993ff 0,
-      #3993ff 63%,
-      transparent 0
-    ),
-    #74b3ff;
+  color: #1976d2;
+  background: ${({ disabled }) => (disabled ? 'lightgray' : 'white')};
+
   cursor: pointer;
 
   &:not(:first-of-type) {
     margin-left: 8px;
   }
 
-  &:hover {
-    animation: ${bounce} 600ms;
-    animation-fill-mode: forwards;
-  }
+  ${({ disabled }) => !disabled && cardHover}
+`;
+
+export const CardOnTable = styled.div`
+  min-height: 90px;
+  min-width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 19px;
+  font-weight: 600;
+  border: 2px solid #1976d2;
+  background: ${({ isShow }) => (isShow ? '#fff' : 'red')};
 `;
 
 export const Cards = styled.div`
@@ -101,4 +97,15 @@ export const Cards = styled.div`
   display: flex;
   justify-content: center;
   background: #d7e9ff;
+`;
+
+export const CardZone = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const TableWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;

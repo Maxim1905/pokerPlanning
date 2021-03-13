@@ -3,6 +3,7 @@ import { useHttp } from '../../hooks/http.hook';
 import { useHistory } from 'react-router-dom';
 import shortid from 'shortid';
 import { AuthContext } from '../../context/auth.context';
+import { UserContext } from '../../context/user.context';
 import { Form, Field } from 'react-final-form';
 import { TextField, Button } from '@material-ui/core';
 
@@ -22,6 +23,8 @@ export const CreatePage = () => {
   const [link, setLink] = useState();
   const { request } = useHttp();
   const auth = useContext(AuthContext);
+
+  const user = useContext(UserContext);
 
   const pressHandler = async (event) => {
     if (event.key === 'Enter') {
@@ -57,7 +60,12 @@ export const CreatePage = () => {
                 <Field
                   name="name"
                   render={({ input, meta }) => (
-                    <TextField label="Название игры" {...input} meta={meta} />
+                    <TextField
+                      label="Название игры"
+                      {...input}
+                      meta={meta}
+                      variant="outlined"
+                    />
                   )}
                 />
                 <FormDirection>
