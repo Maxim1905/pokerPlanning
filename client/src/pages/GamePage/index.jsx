@@ -43,6 +43,12 @@ export const GamePage = () => {
     return;
   };
 
+  const token = JSON.parse(localStorage.getItem('userData')).token;
+
+  if (!token) {
+    return 'Уходи';
+  }
+
   const showCards = () => {
     setShowCards(true);
     socket.emit('deletGrades', []);

@@ -14,14 +14,13 @@ const { check, validationResult } = require('express-validator');
 router.post(
   '/register',
   // middleware проверка полей
-  // [
-  //   check('email', 'Некорректный email').isEmail(),
-  //   check('password', 'Минимальная длина пароля 6 символов').isLength({
-  //     min: 6,
-  //   }),
-  // ],
+  [
+    check('email', 'Некорректный email').isEmail(),
+    check('password', 'Минимальная длина пароля 6 символов').isLength({
+      min: 6,
+    }),
+  ],
   async (request, response) => {
-    console.log('request', request.body);
     try {
       const errors = validationResult(request);
 

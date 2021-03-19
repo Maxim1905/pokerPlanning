@@ -16,7 +16,7 @@ import {
   Wrapper,
 } from './styled';
 
-export const AuthPage = () => {
+export const RegisterForm = () => {
   const { login } = useContext(AuthContext);
 
   const message = useMessage();

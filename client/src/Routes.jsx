@@ -1,8 +1,12 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { AuthPage, CreatePage, GamePage } from './pages';
 
-// создаем хук где будет лежать вся логика роутинга нашего приложения
+import { useParams } from 'react-router-dom';
+
 export const Routes = ({ isAuthenticated }) => {
+  let params = useParams();
+
+  console.log('params', params);
   if (isAuthenticated) {
     return (
       <Switch>
